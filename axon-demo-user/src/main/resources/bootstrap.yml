@@ -1,0 +1,11 @@
+spring:
+  profiles:
+    active: ${RUN_ENV:dev}
+  application:
+    name: axon-demo-user
+  cloud:
+    nacos:
+      server-addr: ${NACOS_ADDR:localhost:8848}
+      discovery:
+        server-addr: ${NACOS_DISCOVERY_ADDR:localhost:8848}
+        group: ${spring.profiles.active}

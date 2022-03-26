@@ -1,0 +1,50 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: mysql
+    database-platform: com.dreamvalley.demo.axon.config.MySql5InnodbDialectUtf8mb4
+  datasource:
+    url: jdbc:mysql://localhost:3306/axon-demo?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai
+    username: root
+    password: hjAzp28383610..
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 30
+      auto-commit: true
+      idle-timeout: 30000
+      pool-name: HikariCP
+      connection-timeout: 10000
+      connection-test-query: SELECT 1
+      validation-timeout: 1000
+axon:
+  amqp:
+    exchange: axonExchange
+    queue: axonQueue
+    routingKey: '#'
+  serializer:
+    general: jackson
+    events: jackson
+    messages: jackson
+  extension:
+    tracing:
+      enabled: true
+      span:
+        command-tags: MESSAGE_ID, MESSAGE_TYPE, PAYLOAD_TYPE, MESSAGE_NAME
+        event-tags: MESSAGE_ID, AGGREGATE_ID, MESSAGE_TYPE, PAYLOAD_TYPE
+        query-tags: MESSAGE_ID, MESSAGE_TYPE, PAYLOAD_TYPE, MESSAGE_NAME
+  distributed:
+    enabled: true
+    load-factor: 100
+    jgroups:
+      bind-addr: GLOBAL
+      bind-port: 7800
+      cluster-name: Axon
+      gossip:
+        auto-start: true
+server:
+  port: 8010
